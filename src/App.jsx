@@ -18,6 +18,7 @@ const LETTERS = [
   "G",
   "H",
   "I",
+  "J",
   "K",
   "L",
   "M",
@@ -67,7 +68,7 @@ function App() {
   useEffect(() => {
     const createHandLandmarker = async () => {
       const vision = await FilesetResolver.forVisionTasks(
-        "https://cdn.jsdelivr.net/npm/@mediapipe/tasks-vision@0.10.3/wasm"
+        "/wasm" //
       );
       const newHandLandmarker = await HandLandmarker.createFromOptions(vision, {
         baseOptions: {
@@ -83,7 +84,6 @@ function App() {
   }, []);
 
   const enableCam = () => {
-    /* ... kode sama ... */
     if (!handLandmarker || webcamRunning) return;
     setWebcamRunning(true);
     navigator.mediaDevices
@@ -93,9 +93,15 @@ function App() {
       });
   };
 
-  const toggleDetection = () => setIsDetecting((prev) => !prev);
+  const toggleDetection = () => {
+    console.log("Tombol 'Mulai/Hentikan Prediksi' diklik!");
+    setIsDetecting((prev) => !prev);
+  };
+
   useEffect(() => {
-    if (isDetecting) predictWebcam();
+    if (isDetecting) {
+      predictWebcam();
+    }
   }, [isDetecting]);
 
   // --- PERUBAHAN UTAMA DI SINI ---
@@ -179,7 +185,11 @@ function App() {
   };
 
   const predictWebcam = () => {
-    if (!isDetecting || !videoRef.current) return;
+    if (!isDetecting || !videoRef.current) {
+      if (isDetecting) window.requestAnimationFrame(predictWebcam);
+      return;
+    }
+
     const video = videoRef.current;
     if (video.videoWidth === 0) {
       window.requestAnimationFrame(predictWebcam);
@@ -195,6 +205,7 @@ function App() {
     const results = handLandmarker.detectForVideo(video, Date.now());
 
     canvasCtx.clearRect(0, 0, canvas.width, canvas.height);
+
     if (results.landmarks && results.landmarks.length > 0) {
       const drawingUtils = new DrawingUtils(canvasCtx);
       for (const landmark of results.landmarks) {
@@ -209,39 +220,54 @@ function App() {
         });
       }
 
-      // Logika Prediksi
+      // --- LOG DIAGNOSTIK DIMULAI DI SINI ---
+
+      // Log 1: "Penjaga Gerbang". Kita cek apa isi state model dan labels.
+      console.log(
+        "Mencoba prediksi. Status Model:",
+        model,
+        "Status Labels:",
+        labels
+      );
+
       if (model && labels.length > 0) {
+        // Log 2: Jika ini muncul, berarti kita berhasil masuk ke logika prediksi.
+        console.log("%cBerhasil masuk ke blok prediksi!", "color: lightgreen;");
+
         const landmarks = results.landmarks[0].flatMap((lm) => [
           lm.x,
           lm.y,
           lm.z,
         ]);
         const inputTensor = tf.tensor2d([landmarks]);
-
         const prediction = model.predict(inputTensor);
         const predictionData = prediction.dataSync();
         const predictedIndex = predictionData.indexOf(
           Math.max(...predictionData)
         );
 
-        setPredictedLetter(labels[predictedIndex]);
+        // Log 3: Kita lihat apa hasil tebakannya sebelum ditampilkan.
+        console.log(
+          `Indeks Prediksi: ${predictedIndex}, Huruf: ${labels[predictedIndex]}`
+        );
 
-        tf.dispose([inputTensor, prediction]); // Penting untuk memori
+        setPredictedLetter(labels[predictedIndex]);
+        tf.dispose([inputTensor, prediction]);
       }
     }
 
     window.requestAnimationFrame(predictWebcam);
   };
-
   return (
-    <div className="bg-gray-800 min-h-screen text-white p-4 space-y-8">
-      {/* Bagian Perekaman */}
-      <div className="flex flex-col items-center">
+    <div className="bg-gray-800 min-h-screen text-white p-4 flex flex-col items-center space-y-6">
+      {/* --- PERUBAHAN UTAMA: STRUKTUR LAYOUT --- */}
+
+      {/* BAGIAN 1: JUDUL DAN PREDIKSI */}
+      <div className="w-full max-w-2xl flex flex-col items-center">
         <h1 className="text-3xl font-bold mb-4 text-center">
-          Perekaman Dataset BISINDO
+          Isyara: Pengenalan BISINDO Real-time
         </h1>
-        {/* ... (UI Video & Tombol Kontrol sama) ... */}
-        <div className="w-full max-w-2xl border-4 border-cyan-500 rounded-lg shadow-lg relative">
+        <div className="w-full border-4 border-cyan-500 rounded-lg shadow-lg relative">
           <video
             ref={videoRef}
             className="w-full h-auto rounded-md z-10"
@@ -256,7 +282,6 @@ function App() {
           <div className="absolute bottom-2 right-2 bg-black bg-opacity-70 text-white font-bold p-4 rounded-md z-30 text-6xl">
             {predictedLetter}
           </div>
-
           {isRecording && (
             <div className="absolute top-2 left-2 bg-red-600 text-white font-bold p-2 rounded-md z-30 animate-pulse">
               Merekam Huruf: {currentLetter}
@@ -273,12 +298,17 @@ function App() {
           </button>
           <button
             onClick={toggleDetection}
-            disabled={!webcamRunning || !model}
+            disabled={!webcamRunning}
             className={`btn-secondary ${
               isDetecting ? "bg-red-500" : "bg-green-500"
             }`}
           >
-            {isDetecting ? "Hentikan Deteksi" : "Mulai Prediksi"}
+            {/* Teks tombol berubah tergantung apakah model sudah dimuat */}
+            {isDetecting
+              ? "Hentikan"
+              : model
+              ? "Mulai Prediksi"
+              : "Mulai Deteksi"}
           </button>
           <div className="flex flex-col items-center gap-2 p-2 border border-gray-600 rounded-lg">
             <p className="text-xs">Pilih 3 File Model:</p>
@@ -307,32 +337,37 @@ function App() {
             </button>
           </div>
         </div>
-        <div className="w-full max-w-4xl p-4 bg-gray-700 rounded-lg mt-4">
-          <h2 className="text-xl font-semibold mb-2 text-center">
-            Klik huruf untuk merekam (otomatis menyimpan per huruf)
-          </h2>
-          <div className="grid grid-cols-5 md:grid-cols-9 gap-2">
-            {LETTERS.map((letter) => (
-              <button
-                key={letter}
-                onClick={() => startRecording(letter)}
-                disabled={!isDetecting || isRecording}
-                className="btn-letter"
-              >
-                {letter}{" "}
-                <span className="text-xs text-cyan-300 block">
-                  ({recordedData[letter]?.length || 0})
-                </span>
-              </button>
-            ))}
-          </div>
+      </div>
+
+      {/* GARIS PEMISAH */}
+      <hr className="border-gray-600 w-full max-w-4xl" />
+
+      {/* BAGIAN 2: PEREKAMAN DATA */}
+      <div className="w-full max-w-4xl p-4 bg-gray-700 rounded-lg">
+        <h2 className="text-xl font-semibold mb-2 text-center">
+          Perekaman Dataset (Otomatis Menyimpan per Huruf)
+        </h2>
+        <div className="grid grid-cols-5 md:grid-cols-9 gap-2">
+          {LETTERS.map((letter) => (
+            <button
+              key={letter}
+              onClick={() => startRecording(letter)}
+              disabled={!isDetecting || isRecording}
+              className="btn-letter"
+            >
+              {letter}{" "}
+              <span className="text-xs text-cyan-300 block">
+                ({recordedData[letter]?.length || 0})
+              </span>
+            </button>
+          ))}
         </div>
       </div>
 
-      {/* Garis Pemisah */}
-      <hr className="border-gray-600 w-full max-w-4xl mx-auto" />
+      {/* GARIS PEMISAH */}
+      <hr className="border-gray-600 w-full max-w-4xl" />
 
-      {/* Bagian Pelatihan Model (Komponen Baru) */}
+      {/* BAGIAN 3: PELATIHAN MODEL */}
       <TrainingModule />
     </div>
   );
