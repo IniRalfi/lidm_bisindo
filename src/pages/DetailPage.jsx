@@ -35,7 +35,7 @@ const ChevronRightIcon = () => (
   </svg>
 );
 
-function DetailPage({ letter, onBack, onNavigateToKamera }) {
+function DetailPage({ letter, onBack, onStartChallenge }) {
   // Ambil data spesifik untuk huruf yang dipilih dari file JSON
   const detail = kamusData[letter];
 
@@ -84,7 +84,7 @@ function DetailPage({ letter, onBack, onNavigateToKamera }) {
 
           {/* Tombol Aksi */}
           <button
-            onClick={onNavigateToKamera}
+            onClick={onStartChallenge}
             className='w-full mt-4 bg-[#099FE5] text-white font-bold text-lg py-4 px-6 rounded-xl flex justify-between items-center shadow-lg hover:bg-blue-600 transition'
           >
             <span>Coba Sekarang</span>

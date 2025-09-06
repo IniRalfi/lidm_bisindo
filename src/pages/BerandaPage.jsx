@@ -46,7 +46,7 @@ const MateriCard = ({ title, onClick }) => (
   </button>
 );
 
-function BerandaPage({ onNavigateToKamera, onNavigateToKamus }) {
+function BerandaPage({ onNavigateToKamera, onNavigateToKamus, onLogout }) {
   // Nama pengguna bisa dijadikan prop di masa depan
   const userName = 'Rafli';
 
@@ -60,6 +60,14 @@ function BerandaPage({ onNavigateToKamera, onNavigateToKamus }) {
             <h1 className='text-2xl font-bold'>Hai, {userName}!</h1>
             <p className='text-gray-500'>Selamat datang!</p>
           </div>
+
+          <button
+            onClick={onLogout}
+            className='text-sm font-bold text-red-500 hover:text-red-700 p-2'
+          >
+            Keluar
+          </button>
+
           <button className='p-2'>
             <HamburgerIcon />
           </button>
