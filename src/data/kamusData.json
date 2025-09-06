@@ -1,0 +1,248 @@
+{
+  "A": {
+    "title": "BISINDO Huruf A",
+    "image": "/assets/tangan/BISINDO_A.png",
+    "steps": [
+      "Gunakan kedua tangan.",
+      "Jempol kiri dan kanan saling menempel di ujung.",
+      "Jari telunjuk kiri dan kanan berdiri lurus ke atas dan saling menempel di ujung, membentuk atap segitiga.",
+      "Jari-jari lainnya ditekuk ke dalam."
+    ]
+  },
+  "B": {
+    "title": "BISINDO Huruf B",
+    "image": "/assets/tangan/BISINDO_B.png",
+    "steps": [
+      "Gunakan satu tangan.",
+      "Angkat jari telunjuk lurus ke atas.",
+      "Tekuk tiga jari lainnya ke dalam telapak tangan.",
+      "Tempelkan jempol di sisi jari tengah."
+    ]
+  },
+  "C": {
+    "title": "BISINDO Huruf C",
+    "image": "/assets/tangan/BISINDO_C.png",
+    "steps": [
+      "Gunakan satu tangan.",
+      "Bentuk jari-jari seperti huruf 'C' melengkung.",
+      "Pastikan ada celah antara jempol dan jari telunjuk."
+    ]
+  },
+  "D": {
+    "title": "BISINDO Huruf D",
+    "image": "/assets/tangan/BISINDO_D.png",
+    "steps": [
+      "Gunakan satu tangan.",
+      "Angkat jari telunjuk lurus ke atas.",
+      "Jari-jari lainnya ditekuk ke dalam telapak tangan.",
+      "Jempol menempel di sisi jari tengah."
+    ]
+  },
+  "E": {
+    "title": "BISINDO Huruf E",
+    "image": "/assets/tangan/BISINDO_E.png",
+    "steps": [
+      "Gunakan satu tangan.",
+      "Rapatkan semua jari dan tekuk ke arah telapak tangan.",
+      "Jempol menekan jari-jari dari bawah."
+    ]
+  },
+  "F": {
+    "title": "BISINDO Huruf F",
+    "image": "/assets/tangan/BISINDO_F.png",
+    "steps": [
+      "Gunakan satu tangan.",
+      "Sentuhkan ujung jari telunjuk dan ibu jari membentuk lingkaran.",
+      "Tiga jari lainnya lurus ke atas."
+    ]
+  },
+  "G": {
+    "title": "BISINDO Huruf G",
+    "image": "/assets/tangan/BISINDO_G.png",
+    "steps": [
+      "Gunakan satu tangan.",
+      "Jari telunjuk dan jempol lurus ke depan sejajar.",
+      "Jari lainnya ditekuk ke dalam telapak tangan."
+    ]
+  },
+  "H": {
+    "title": "BISINDO Huruf H",
+    "image": "/assets/tangan/BISINDO_H.png",
+    "steps": [
+      "Gunakan satu tangan.",
+      "Angkat jari telunjuk dan tengah lurus ke depan.",
+      "Jari lainnya ditekuk ke dalam telapak tangan.",
+      "Jempol menempel di jari manis."
+    ]
+  },
+  "I": {
+    "title": "BISINDO Huruf I",
+    "image": "/assets/tangan/BISINDO_I.png",
+    "steps": [
+      "Gunakan satu tangan.",
+      "Angkat jari kelingking lurus ke atas.",
+      "Jari lainnya ditekuk ke dalam telapak tangan.",
+      "Jempol menempel di jari tengah."
+    ]
+  },
+  "J": {
+    "title": "BISINDO Huruf J",
+    "image": "/assets/tangan/BISINDO_J.png",
+    "steps": [
+      "Gunakan satu tangan.",
+      "Angkat jari kelingking lurus ke atas.",
+      "Buat gerakan melengkung ke bawah membentuk huruf 'J'.",
+      "Jari lainnya ditekuk ke dalam telapak tangan."
+    ]
+  },
+  "K": {
+    "title": "BISINDO Huruf K",
+    "image": "/assets/tangan/BISINDO_K.png",
+    "steps": [
+      "Gunakan satu tangan.",
+      "Angkat jari telunjuk dan tengah membentuk huruf 'V'.",
+      "Jempol menempel di jari manis.",
+      "Jari lainnya ditekuk ke dalam telapak tangan."
+    ]
+  },
+  "L": {
+    "title": "BISINDO Huruf L",
+    "image": "/assets/tangan/BISINDO_L.png",
+    "steps": [
+      "Gunakan satu tangan.",
+      "Angkat jari telunjuk lurus ke atas.",
+      "Jempol lurus ke samping membentuk sudut 90 derajat.",
+      "Jari lainnya ditekuk ke dalam telapak tangan."
+    ]
+  },
+  "M": {
+    "title": "BISINDO Huruf M",
+    "image": "/assets/tangan/BISINDO_M.png",
+    "steps": [
+      "Gunakan satu tangan.",
+      "Tekuk tiga jari (telunjuk, tengah, manis) ke dalam telapak tangan.",
+      "Letakkan ibu jari di bawah ketiga jari tersebut.",
+      "Jari kelingking lurus ke atas."
+    ]
+  },
+  "N": {
+    "title": "BISINDO Huruf N",
+    "image": "/assets/tangan/BISINDO_N.png",
+    "steps": [
+      "Gunakan satu tangan.",
+      "Tekuk dua jari (telunjuk dan tengah) ke dalam telapak tangan.",
+      "Letakkan ibu jari di bawah kedua jari tersebut.",
+      "Jari lainnya lurus ke atas."
+    ]
+  },
+  "O": {
+    "title": "BISINDO Huruf O",
+    "image": "/assets/tangan/BISINDO_O.png",
+    "steps": [
+      "Gunakan satu tangan.",
+      "Rapatkan semua jari dan tekuk membentuk lingkaran seperti huruf 'O'."
+    ]
+  },
+  "P": {
+    "title": "BISINDO Huruf P",
+    "image": "/assets/tangan/BISINDO_P.png",
+    "steps": [
+      "Gunakan satu tangan.",
+      "Angkat jari telunjuk dan tengah membentuk huruf 'V' terbalik.",
+      "Jempol menempel di jari manis.",
+      "Arahkan tangan ke bawah."
+    ]
+  },
+  "Q": {
+    "title": "BISINDO Huruf Q",
+    "image": "/assets/tangan/BISINDO_Q.png",
+    "steps": [
+      "Gunakan satu tangan.",
+      "Jari telunjuk dan ibu jari membentuk lingkaran kecil.",
+      "Arahkan tangan ke bawah."
+    ]
+  },
+  "R": {
+    "title": "BISINDO Huruf R",
+    "image": "/assets/tangan/BISINDO_R.png",
+    "steps": [
+      "Gunakan satu tangan.",
+      "Silangkan jari telunjuk dan tengah.",
+      "Jari lainnya ditekuk ke dalam telapak tangan.",
+      "Jempol menempel di jari manis."
+    ]
+  },
+  "S": {
+    "title": "BISINDO Huruf S",
+    "image": "/assets/tangan/BISINDO_S.png",
+    "steps": [
+      "Gunakan satu tangan.",
+      "Kepalkan semua jari ke dalam telapak tangan.",
+      "Jempol menutupi jari-jari lainnya di depan."
+    ]
+  },
+  "T": {
+    "title": "BISINDO Huruf T",
+    "image": "/assets/tangan/BISINDO_T.png",
+    "steps": [
+      "Gunakan satu tangan.",
+      "Kepalkan tangan.",
+      "Letakkan ibu jari di antara jari telunjuk dan tengah."
+    ]
+  },
+  "U": {
+    "title": "BISINDO Huruf U",
+    "image": "/assets/tangan/BISINDO_U.png",
+    "steps": [
+      "Gunakan satu tangan.",
+      "Angkat jari telunjuk dan tengah lurus ke atas dan rapat.",
+      "Jari lainnya ditekuk ke dalam telapak tangan."
+    ]
+  },
+  "V": {
+    "title": "BISINDO Huruf V",
+    "image": "/assets/tangan/BISINDO_V.png",
+    "steps": [
+      "Gunakan satu tangan.",
+      "Angkat jari telunjuk dan tengah membentuk huruf 'V'.",
+      "Jari lainnya ditekuk ke dalam telapak tangan."
+    ]
+  },
+  "W": {
+    "title": "BISINDO Huruf W",
+    "image": "/assets/tangan/BISINDO_W.png",
+    "steps": [
+      "Gunakan satu tangan.",
+      "Angkat tiga jari (telunjuk, tengah, manis) lurus ke atas dan rapat.",
+      "Jari lainnya ditekuk ke dalam telapak tangan."
+    ]
+  },
+  "X": {
+    "title": "BISINDO Huruf X",
+    "image": "/assets/tangan/BISINDO_X.png",
+    "steps": [
+      "Gunakan satu tangan.",
+      "Tekuk jari telunjuk membentuk kait.",
+      "Jari lainnya ditekuk ke dalam telapak tangan."
+    ]
+  },
+  "Y": {
+    "title": "BISINDO Huruf Y",
+    "image": "/assets/tangan/BISINDO_Y.png",
+    "steps": [
+      "Gunakan satu tangan.",
+      "Angkat jari kelingking dan ibu jari lurus ke samping.",
+      "Jari lainnya ditekuk ke dalam telapak tangan."
+    ]
+  },
+  "Z": {
+    "title": "BISINDO Huruf Z",
+    "image": "/assets/tangan/BISINDO_Z.png",
+    "steps": [
+      "Gunakan satu tangan.",
+      "Angkat jari telunjuk lurus ke atas.",
+      "Buat gerakan membentuk huruf 'Z' di udara dengan jari telunjuk.",
+      "Jari lainnya ditekuk ke dalam telapak tangan."
+    ]
+  }
+}
