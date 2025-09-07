@@ -1,6 +1,6 @@
 import React from 'react';
 
-// Komponen Ikon sederhana
+// Ikon-ikon ini masih diperlukan oleh komponen ini
 const HamburgerIcon = () => (
   <svg
     className='w-8 h-8 text-gray-800'
@@ -17,7 +17,6 @@ const HamburgerIcon = () => (
     />
   </svg>
 );
-
 const ChevronRightIcon = () => (
   <svg
     className='w-8 h-8 text-white'
@@ -34,8 +33,6 @@ const ChevronRightIcon = () => (
     />
   </svg>
 );
-
-// Komponen Kartu Materi yang bisa digunakan ulang
 const MateriCard = ({ title, onClick }) => (
   <button
     onClick={onClick}
@@ -46,34 +43,31 @@ const MateriCard = ({ title, onClick }) => (
   </button>
 );
 
-function BerandaPage({ onNavigateToKamera, onNavigateToKamus, onLogout }) {
-  // Nama pengguna bisa dijadikan prop di masa depan
+// PERUBAHAN: Prop disederhanakan. Hanya menerima onMenuClick dan fungsi navigasi.
+function BerandaPage({
+  onNavigateToKamus,
+  onNavigateToNamaChallenge,
+  onMenuClick,
+}) {
   const userName = 'Rafli';
 
   return (
     <div className='min-h-screen w-full bg-white p-6 font-[var(--font-nunito)] text-gray-800'>
-      {/* Wrapper untuk membatasi lebar di layar besar dan memusatkan konten */}
+      {/* SidebarMenu sudah tidak ada lagi di sini */}
+
       <div className='w-full max-w-md mx-auto flex flex-col gap-8'>
-        {/* Header */}
         <header className='flex justify-between items-center'>
           <div>
             <h1 className='text-2xl font-bold'>Hai, {userName}!</h1>
             <p className='text-gray-500'>Selamat datang!</p>
           </div>
-
-          <button
-            onClick={onLogout}
-            className='text-sm font-bold text-red-500 hover:text-red-700 p-2'
-          >
-            Keluar
-          </button>
-
-          <button className='p-2'>
+          {/* PERUBAHAN: Tombol ini sekarang memanggil onMenuClick yang dikirim dari App.jsx */}
+          <button onClick={onMenuClick} className='p-2'>
             <HamburgerIcon />
           </button>
         </header>
 
-        {/* Bagian Materi */}
+        {/* Bagian Materi (tidak berubah) */}
         <section>
           <h2 className='text-2xl font-bold mb-3'>Materi</h2>
           <div className='flex flex-col gap-3'>
@@ -85,13 +79,9 @@ function BerandaPage({ onNavigateToKamera, onNavigateToKamus, onLogout }) {
           </div>
         </section>
 
-        {/* Bagian Tantangan */}
+        {/* Bagian Tantangan (tidak berubah) */}
         <section>
           <h2 className='text-2xl font-bold mb-3'>Tantangan Sederhana!</h2>
-          {/* Catatan: Pola latar belakang dari Figma sangat kompleks.
-              Saya sederhanakan menjadi warna solid untuk menjaga kode tetap bersih,
-              namun tetap mempertahankan nuansa desainnya.
-            */}
           <div className='w-full bg-[#DAF0FF] p-6 rounded-2xl flex flex-col gap-2'>
             <h3 className='text-lg font-bold text-gray-800'>
               Coba bentuk sesuai namamu!
@@ -100,7 +90,7 @@ function BerandaPage({ onNavigateToKamera, onNavigateToKamus, onLogout }) {
               Bentuk huruf namamu menggunakan bahasa isyarat BISINDO!
             </p>
             <button
-              onClick={onNavigateToKamera}
+              onClick={onNavigateToNamaChallenge}
               className='mt-2 bg-[#FF9600] text-white font-bold py-3 rounded-full shadow-[0_4px_0_0_#D98000] hover:bg-orange-500 active:shadow-none active:translate-y-0.5 transition-all duration-150'
             >
               Coba Sekarang!
