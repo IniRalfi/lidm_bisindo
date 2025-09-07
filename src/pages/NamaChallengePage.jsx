@@ -33,13 +33,14 @@ function NamaChallengePage({ onBack, onFinish }) {
   const [labels, setLabels] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
+  // State untuk logika game
   const [isRecording, setIsRecording] = useState(false);
   const [countdown, setCountdown] = useState(3);
   const [predictedLetter, setPredictedLetter] = useState('...');
-  const [spelledWord, setSpelledWord] = useState([]);
+  const [spelledWord, setSpelledWord] = useState([]); // Menyimpan kata yang dieja
   const sessionPredictionsRef = useRef([]);
 
-  // Setup & muat model
+  // Setup & muat model (sama seperti sebelumnya)
   useEffect(() => {
     const setup = async () => {
       try {
@@ -73,7 +74,7 @@ function NamaChallengePage({ onBack, onFinish }) {
     setup();
   }, []);
 
-  // Mengelola kamera
+  // Mengelola kamera (sama seperti sebelumnya)
   useEffect(() => {
     if (handLandmarker && model) {
       navigator.mediaDevices
@@ -89,7 +90,7 @@ function NamaChallengePage({ onBack, onFinish }) {
     };
   }, [handLandmarker, model]);
 
-  // Loop prediksi
+  // Loop prediksi (mirip, tapi hanya update state `predictedLetter`)
   const predictLoop = () => {
     if (!videoRef.current || !handLandmarker) return;
     const video = videoRef.current;
@@ -108,15 +109,15 @@ function NamaChallengePage({ onBack, onFinish }) {
     }
 
     if (results.landmarks && results.landmarks.length > 0) {
-      if (canvas) {
-        const drawingUtils = new DrawingUtils(canvasCtx);
-        drawingUtils.drawConnectors(
-          results.landmarks[0],
-          HandLandmarker.HAND_CONNECTIONS,
-          { color: '#22d3ee' }
-        );
-        drawingUtils.drawLandmarks(results.landmarks[0], { color: '#c026d3' });
-      }
+      // if (canvas) {
+      //   const drawingUtils = new DrawingUtils(canvasCtx);
+      //   drawingUtils.drawConnectors(
+      //     results.landmarks[0],
+      //     HandLandmarker.HAND_CONNECTIONS,
+      //     { color: '#22d3ee' }
+      //   );
+      //   drawingUtils.drawLandmarks(results.landmarks[0], { color: '#c026d3' });
+      // }
 
       const landmarks = results.landmarks[0].flatMap((lm) => [
         lm.x,
@@ -151,6 +152,7 @@ function NamaChallengePage({ onBack, onFinish }) {
     };
   }, [isLoading, isRecording, model]);
 
+  // Fungsi untuk menganalisis hasil rekaman 3 detik
   const evaluateSession = () => {
     const predictions = sessionPredictionsRef.current;
     if (predictions.length === 0) {
@@ -159,6 +161,7 @@ function NamaChallengePage({ onBack, onFinish }) {
       );
       return;
     }
+    // Cari huruf yang paling sering muncul
     const mode = predictions
       .sort(
         (a, b) =>
@@ -170,6 +173,7 @@ function NamaChallengePage({ onBack, onFinish }) {
     setSpelledWord((prev) => [...prev, mode]);
   };
 
+  // Fungsi untuk memulai rekaman
   const handleStartRecording = () => {
     if (isRecording) return;
     setIsRecording(true);
@@ -187,8 +191,9 @@ function NamaChallengePage({ onBack, onFinish }) {
     }, 3000);
   };
 
+  // Fungsi BARU untuk mengulangi huruf terakhir
   const handleRepeat = () => {
-    setSpelledWord((prev) => prev.slice(0, -1));
+    setSpelledWord((prev) => prev.slice(0, -1)); // Hapus huruf terakhir
   };
 
   const handleFinish = () => {
@@ -200,17 +205,17 @@ function NamaChallengePage({ onBack, onFinish }) {
   };
 
   return (
-    <div className='min-h-screen w-full bg-white font-[var(--font-nunito)] text-gray-800'>
+    <div className='min-h-screen w-full bg-white text-gray-800'>
       <div className='w-full max-w-md mx-auto'>
         <header className='sticky top-0 bg-white bg-opacity-80 backdrop-blur-sm z-20 py-4 px-4 flex items-center gap-4 border-b border-gray-200'>
           <button onClick={onBack} className='p-2 -ml-2'>
             <ArrowLeftIcon />
           </button>
-          <h1 className='text-2xl font-bold'>Bentuk Namamu!</h1>
+          <h1 className='text-2xl font-bold'>Bentuk Katamu!</h1>
         </header>
 
         <main className='p-4 flex flex-col gap-6'>
-          <div className='w-full aspect-video bg-gray-900 rounded-xl border-8 border-blue-500 overflow-hidden relative'>
+          <div className='w-full aspect-video bg-gray-900 rounded-xl border-4 border-blue-400 overflow-hidden relative'>
             {isLoading && (
               <p className='absolute inset-0 flex items-center justify-center text-gray-500'>
                 Memuat...
@@ -227,9 +232,6 @@ function NamaChallengePage({ onBack, onFinish }) {
               ref={canvasRef}
               className='absolute top-0 left-0 w-full h-full'
             />
-            <div className='absolute top-2 right-2 bg-black bg-opacity-60 px-4 py-2 rounded-lg text-white text-3xl font-bold'>
-              {isRecording ? `...` : predictedLetter}
-            </div>
           </div>
 
           <div className='p-4 bg-gray-100 rounded-lg min-h-[80px] flex flex-wrap items-center justify-center gap-2'>
@@ -248,6 +250,7 @@ function NamaChallengePage({ onBack, onFinish }) {
             ))}
           </div>
 
+          {/* Tampilkan Langkah-langkah hanya jika belum ada huruf */}
           {spelledWord.length === 0 && (
             <div>
               <h2 className='text-xl font-bold mb-2'>Langkah-langkah:</h2>
@@ -262,6 +265,7 @@ function NamaChallengePage({ onBack, onFinish }) {
           )}
 
           <div className='mt-4 flex flex-col gap-3'>
+            {/* Tampilkan tombol "Mulai" jika belum ada huruf */}
             {spelledWord.length === 0 ? (
               <button
                 onClick={handleStartRecording}
@@ -273,25 +277,26 @@ function NamaChallengePage({ onBack, onFinish }) {
                 {isRecording ? `Merekam... ${countdown}` : 'Mulai Rekam!'}
               </button>
             ) : (
-              <div className='grid grid-cols-3 gap-3'>
+              // PERUBAHAN DI SINI: Tombol disusun ke bawah
+              <div className='flex flex-col gap-3'>
                 <button
                   onClick={handleStartRecording}
                   disabled={isRecording}
-                  className='w-full bg-green-500 hover:bg-green-600 text-white font-bold text-lg py-3 rounded-xl transition-all duration-200 disabled:opacity-50'
+                  className='w-full bg-green-500 hover:bg-green-600 text-white font-bold text-lg py-4 rounded-xl transition-all duration-200 disabled:opacity-50'
                 >
-                  {isRecording ? `${countdown}` : 'Lanjut'}
+                  {isRecording ? `Merekam... ${countdown}` : 'Lanjut'}
                 </button>
                 <button
                   onClick={handleRepeat}
                   disabled={isRecording}
-                  className='w-full bg-yellow-500 hover:bg-yellow-600 text-white font-bold text-lg py-3 rounded-xl transition-all duration-200 disabled:opacity-50'
+                  className='w-full bg-yellow-500 hover:bg-yellow-600 text-white font-bold text-lg py-4 rounded-xl transition-all duration-200 disabled:opacity-50'
                 >
                   Ulangi
                 </button>
                 <button
                   onClick={handleFinish}
                   disabled={isRecording}
-                  className='w-full bg-blue-500 hover:bg-blue-600 text-white font-bold text-lg py-3 rounded-xl transition-all duration-200 disabled:opacity-50'
+                  className='w-full bg-blue-500 hover:bg-blue-600 text-white font-bold text-lg py-4 rounded-xl transition-all duration-200 disabled:opacity-50'
                 >
                   Selesai
                 </button>
