@@ -6,6 +6,7 @@ import {
   DrawingUtils,
 } from '@mediapipe/tasks-vision';
 import kamusData from '../data/kamusData.json'; // Path sudah diperbaiki
+import LoadingSpinner from '../components/LoadingSpinner';
 
 const ArrowLeftIcon = () => (
   <svg
@@ -234,9 +235,9 @@ function ChallengePage({ letter, onBack }) {
         <main className='p-4 flex flex-col gap-6'>
           <div className='w-full aspect-video bg-gray-200 rounded-xl border-4 border-blue-500 overflow-hidden relative'>
             {isLoading && (
-              <p className='absolute inset-0 flex items-center justify-center text-gray-500'>
-                Memuat Kamera & AI...
-              </p>
+              <div className='absolute inset-0 flex items-center justify-center bg-gray-900 bg-opacity-50'>
+                <LoadingSpinner />
+              </div>
             )}
             <video
               ref={videoRef}

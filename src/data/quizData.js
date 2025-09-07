@@ -65,7 +65,9 @@ const generateQuestion_TebakHuruf = (correctLetter) => {
 
   return {
     type: 'tebak_huruf',
+    // PERBAIKAN: Teks soalnya bersih, hanya berisi pertanyaan.
     questionText: 'Pilih huruf di bawah untuk gambar ini',
+    // Path gambar disimpan di questionValue, yang akan digunakan oleh komponen UI.
     questionValue: `/assets/tangan/BISINDO_${correctLetter}.png`,
     options: options.map((letter) => ({
       value: letter,

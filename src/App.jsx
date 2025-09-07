@@ -11,9 +11,9 @@ import NamaChallengePage from './pages/NamaChallengePage';
 import SuccessPage from './pages/SuccessPage';
 import AdminPage from './pages/AdminPage';
 import KuisPage from './pages/KuisPage';
-import QuizCountdownPage from './pages/QuizCountdownPage'; // Impor halaman hitung mundur baru
-import QuizGamePage from './pages/QuizGamePage';
+import QuizCountdownPage from './pages/QuizCountdownPage';
 import QuizResultPage from './pages/QuizResultPage';
+import StoryPage from './pages/StoryPage';
 
 // Baca "saklar rahasia" untuk mode admin
 const IS_ADMIN_MODE_AVAILABLE = import.meta.env.VITE_SHOW_ADMIN_PAGE === 'true';
@@ -105,6 +105,15 @@ function App() {
             <KuisPage
               onMenuClick={() => setIsSidebarOpen(true)}
               onNavigateToGame={() => handleNavigation('quizCountdown')} // Arahkan ke hitung mundur
+              onNavigateToStory={() => handleNavigation('story')}
+            />
+          );
+        case 'story':
+          // Setelah cerita selesai, panggil handleQuizFinish
+          return (
+            <StoryPage
+              onBack={() => handleNavigation('kuis')}
+              onFinish={handleQuizFinish}
             />
           );
         case 'quizCountdown':

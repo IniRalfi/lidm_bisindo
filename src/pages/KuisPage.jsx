@@ -52,7 +52,7 @@ const QuizCard = ({ title, onClick, disabled = false }) => (
   </button>
 );
 
-function KuisPage({ onMenuClick, onNavigateToGame }) {
+function KuisPage({ onMenuClick, onNavigateToGame, onNavigateToStory }) {
   return (
     <div className='min-h-screen w-full bg-white font-[var(--font-nunito)]'>
       {/* Header Oranye */}
@@ -75,6 +75,13 @@ function KuisPage({ onMenuClick, onNavigateToGame }) {
               title='Tebak Gambar dan Huruf'
               onClick={onNavigateToGame}
             />
+          </div>
+        </section>
+
+        <section>
+          <h2 className='text-2xl font-bold text-gray-800 mb-3'>Cerita</h2>
+          <div className='flex flex-col gap-3'>
+            <QuizCard title='Bingung?' onClick={onNavigateToStory} />
           </div>
         </section>
 

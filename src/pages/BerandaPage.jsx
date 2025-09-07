@@ -1,4 +1,5 @@
 import React from 'react';
+import ChallengeBanner from '../components/ChallengeBanner';
 
 // Ikon-ikon ini masih diperlukan oleh komponen ini
 const HamburgerIcon = () => (
@@ -82,20 +83,7 @@ function BerandaPage({
         {/* Bagian Tantangan (tidak berubah) */}
         <section>
           <h2 className='text-2xl font-bold mb-3'>Tantangan Sederhana!</h2>
-          <div className='w-full bg-[#DAF0FF] p-6 rounded-2xl flex flex-col gap-2'>
-            <h3 className='text-lg font-bold text-gray-800'>
-              Coba bentuk sesuai namamu!
-            </h3>
-            <p className='text-sm text-gray-700'>
-              Bentuk huruf namamu menggunakan bahasa isyarat BISINDO!
-            </p>
-            <button
-              onClick={onNavigateToNamaChallenge}
-              className='mt-2 bg-[#FF9600] text-white font-bold py-3 rounded-full shadow-[0_4px_0_0_#D98000] hover:bg-orange-500 active:shadow-none active:translate-y-0.5 transition-all duration-150'
-            >
-              Coba Sekarang!
-            </button>
-          </div>
+          <ChallengeBanner onClick={onNavigateToNamaChallenge} />
         </section>
       </div>
     </div>

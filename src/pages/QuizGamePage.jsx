@@ -25,25 +25,41 @@ function QuizGamePage({ onBackToMenu, onQuizComplete }) {
   const [selectedAnswer, setSelectedAnswer] = useState(null);
   const [isChecked, setIsChecked] = useState(false);
   const [score, setScore] = useState(0);
+  const [questionResults, setQuestionResults] = useState([]);
 
   // Buat kuis baru saat halaman pertama kali dimuat
   useEffect(() => {
     setQuestions(generateQuiz());
   }, []);
 
+  // --- PERUBAHAN UTAMA DI SINI ---
+  // Pindahkan pengecekan loading ke paling atas.
+  // Jika data soal belum siap, jangan lanjutkan eksekusi kode di bawahnya.
+  if (questions.length === 0) {
+    return (
+      <div className='min-h-screen flex items-center justify-center font-bold text-xl'>
+        Memuat Kuis...
+      </div>
+    );
+  }
+
+  // Kode di bawah ini HANYA akan berjalan jika questions.length > 0
   const currentQuestion = questions[currentQuestionIndex];
+  const isCorrect = selectedAnswer === currentQuestion.correctAnswer;
 
   const handleAnswerSelect = (answerValue) => {
-    if (isChecked) return; // Jangan biarkan mengubah jawaban setelah diperiksa
+    if (isChecked) return;
     setSelectedAnswer(answerValue);
   };
 
   const handleCheckAnswer = () => {
     if (!selectedAnswer) return;
     setIsChecked(true);
-    if (selectedAnswer === currentQuestion.correctAnswer) {
+    const isAnswerCorrect = selectedAnswer === currentQuestion.correctAnswer;
+    if (isAnswerCorrect) {
       setScore((prev) => prev + 1);
     }
+    setQuestionResults((prev) => [...prev, isAnswerCorrect]);
   };
 
   const handleNextQuestion = () => {
@@ -56,7 +72,6 @@ function QuizGamePage({ onBackToMenu, onQuizComplete }) {
     }
   };
 
-  // Helper untuk styling tombol/kartu jawaban
   const getOptionStyle = (optionValue) => {
     if (!isChecked) {
       return selectedAnswer === optionValue
@@ -75,10 +90,6 @@ function QuizGamePage({ onBackToMenu, onQuizComplete }) {
     return 'bg-white border-gray-200';
   };
 
-  if (questions.length === 0) {
-    return <div>Memuat Kuis...</div>;
-  }
-
   return (
     <div className='min-h-screen w-full bg-white font-[var(--font-nunito)] text-gray-800'>
       <div className='w-full max-w-md mx-auto'>
@@ -87,43 +98,47 @@ function QuizGamePage({ onBackToMenu, onQuizComplete }) {
             <ArrowLeftIcon />
           </button>
           <div className='flex-grow flex justify-center gap-2'>
-            {questions.map((_, index) => (
-              <div
-                key={index}
-                className={`w-8 h-8 rounded-full flex items-center justify-center font-bold ${
-                  index === currentQuestionIndex
-                    ? 'bg-blue-500 text-white'
-                    : 'bg-gray-200 text-gray-500'
-                }`}
-              >
-                {index + 1}
-              </div>
-            ))}
+            {questions.map((_, index) => {
+              const isPastQuestion = index < currentQuestionIndex;
+              const isCurrentQuestion = index === currentQuestionIndex;
+              let bubbleClass = 'bg-gray-200 text-gray-500';
+
+              if (isCurrentQuestion) {
+                bubbleClass = 'bg-blue-500 text-white';
+              } else if (isPastQuestion) {
+                bubbleClass = questionResults[index]
+                  ? 'bg-green-500 text-white'
+                  : 'bg-red-500 text-white';
+              }
+
+              return (
+                <div
+                  key={index}
+                  className={`w-8 h-8 rounded-full flex items-center justify-center font-bold transition-colors ${bubbleClass}`}
+                >
+                  {index + 1}
+                </div>
+              );
+            })}
           </div>
         </header>
 
-        <main className='p-6 flex flex-col gap-8'>
-          {/* Soal */}
-          <div>
+        <main className='p-6 flex flex-col gap-5'>
+          <div className='min-h-[64px] flex items-center justify-center'>
             <h2 className='text-2xl font-bold text-center'>
-              {currentQuestion.questionText
-                .split(currentQuestion.questionValue)
-                .map((text, index) =>
-                  index === 0 ? (
-                    <span key={index}>
-                      {text}
-                      <span className='text-blue-500'>
-                        {currentQuestion.questionValue}
-                      </span>
-                    </span>
-                  ) : (
-                    text
-                  )
-                )}
+              {currentQuestion.type === 'tebak_gambar' ? (
+                <span>
+                  Pilih gambar di bawah untuk huruf{' '}
+                  <span className='text-blue-500'>
+                    {currentQuestion.questionValue}
+                  </span>
+                </span>
+              ) : (
+                <span>{currentQuestion.questionText}</span>
+              )}
             </h2>
           </div>
 
-          {/* Konten Soal & Pilihan Jawaban */}
           {currentQuestion.type === 'tebak_gambar' && (
             <div className='grid grid-cols-2 gap-4'>
               {currentQuestion.options.map((option) => (
@@ -143,7 +158,6 @@ function QuizGamePage({ onBackToMenu, onQuizComplete }) {
               ))}
             </div>
           )}
-
           {currentQuestion.type === 'tebak_huruf' && (
             <div className='flex flex-col items-center gap-6'>
               <div className='w-48 h-48 rounded-xl border-4 border-gray-200 p-4 flex items-center justify-center'>
@@ -169,15 +183,26 @@ function QuizGamePage({ onBackToMenu, onQuizComplete }) {
             </div>
           )}
 
-          {/* Tombol Aksi */}
-          <div className='mt-4'>
+          <div className=' flex items-center justify-center'>
+            {isChecked && (
+              <div
+                className={`text-center font-bold text-2xl animate-pop-in ${
+                  isCorrect ? 'text-green-500' : 'text-red-500'
+                }`}
+              >
+                {isCorrect ? 'Benar!' : 'Salah!'}
+              </div>
+            )}
+          </div>
+
+          <div>
             {isChecked ? (
               <button
                 onClick={handleNextQuestion}
                 className={`w-full text-white font-bold text-lg py-4 rounded-xl transition-all duration-200 ${
-                  selectedAnswer === currentQuestion.correctAnswer
-                    ? 'bg-green-500'
-                    : 'bg-red-500'
+                  isCorrect
+                    ? 'bg-green-500 shadow-[0_4px_0_0_#15803d]'
+                    : 'bg-red-500 shadow-[0_4px_0_0_#b91c1c]'
                 }`}
               >
                 Lanjut
@@ -186,7 +211,7 @@ function QuizGamePage({ onBackToMenu, onQuizComplete }) {
               <button
                 onClick={handleCheckAnswer}
                 disabled={!selectedAnswer}
-                className='w-full bg-gray-300 text-gray-600 font-bold text-lg py-4 rounded-xl transition-all duration-200 disabled:opacity-50 enabled:bg-blue-500 enabled:text-white'
+                className='w-full bg-gray-300 text-gray-600 font-bold text-lg py-4 rounded-xl transition-all duration-200 disabled:opacity-50 enabled:bg-blue-500 enabled:text-white enabled:shadow-[0_4px_0_0_#0887C3]'
               >
                 Periksa
               </button>
