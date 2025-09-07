@@ -1,7 +1,8 @@
-import React, { useState } from 'react';
-import { storyScript } from '../data/storyData';
+import React, { useState, useEffect } from 'react';
+// PERUBAHAN: Impor fungsi generator, bukan data statis
+import { generateStoryQuiz } from '../data/storyData';
 
-// Komponen Ikon & Dialog (tidak berubah)
+// Komponen Ikon & Dialog (tidak ada perubahan di sini)
 const ArrowLeftIcon = () => (
   <svg
     className='w-8 h-8 text-gray-800'
@@ -44,50 +45,61 @@ const DialogueBubble = ({ speaker, text, image, speakerPosition }) => {
 };
 
 function StoryPage({ onBack, onFinish }) {
+  // State BARU untuk menyimpan naskah cerita yang dibuat secara acak
+  const [story, setStory] = useState(null);
+
   const [sceneIndex, setSceneIndex] = useState(0);
   const [selectedAnswer, setSelectedAnswer] = useState(null);
-  const [answerStatus, setAnswerStatus] = useState(null); // 'idle', 'correct', 'incorrect'
+  const [answerStatus, setAnswerStatus] = useState(null);
 
-  const currentScene = storyScript[sceneIndex];
+  // useEffect untuk membuat cerita baru HANYA SEKALI saat halaman dimuat
+  useEffect(() => {
+    setStory(generateStoryQuiz());
+  }, []);
 
-  // --- FUNGSI UTAMA YANG DIPERBAIKI TOTAL ---
+  // Tampilkan loading jika cerita belum selesai dibuat
+  if (!story) {
+    return (
+      <div className='min-h-screen flex items-center justify-center font-bold text-xl'>
+        Membuat Cerita...
+      </div>
+    );
+  }
+
+  const currentScene = story[sceneIndex];
+  const isCorrect = selectedAnswer === currentScene.question?.correctAnswer;
+
   const handleNext = () => {
-    // Logika saat berada di adegan pertanyaan
     if (currentScene.type === 'question') {
       if (!selectedAnswer) {
         alert('Pilih jawaban terlebih dahulu!');
         return;
       }
-      const isCorrect = selectedAnswer === currentScene.question.correctAnswer;
       setAnswerStatus(isCorrect ? 'correct' : 'incorrect');
-
       setTimeout(() => {
-        // Pilih adegan selanjutnya berdasarkan jawaban
         if (isCorrect) {
-          setSceneIndex(2); // Langsung ke adegan "Jawaban Benar" (index 2 di storyData)
+          setSceneIndex(2);
         } else {
-          setSceneIndex(3); // Langsung ke adegan "Jawaban Salah" (index 3 di storyData)
+          setSceneIndex(3);
         }
-        // Reset status untuk adegan berikutnya agar tombol tidak disabled
         setAnswerStatus(null);
         setSelectedAnswer(null);
-      }, 1500); // Jeda 1.5 detik untuk feedback
+      }, 1500);
       return;
     }
 
-    // Logika untuk adegan lainnya (dialogue)
     switch (sceneIndex) {
-      case 0: // Adegan Intro
-        setSceneIndex(1); // Lanjut ke adegan Pertanyaan
+      case 0:
+        setSceneIndex(1);
         break;
-      case 2: // Adegan Jawaban Benar
-        onFinish({ score: 1, total: 1 }); // Selesaikan kuis dengan skor 1
+      case 2:
+        onFinish({ score: 1, total: 1 });
         break;
-      case 3: // Adegan Jawaban Salah
-        onBack(); // "Belajar Lagi" berarti kembali ke menu kuis
+      case 3:
+        onBack();
         break;
       default:
-        onBack(); // Fallback jika terjadi kesalahan
+        onBack();
         break;
     }
   };
@@ -168,9 +180,8 @@ function StoryPage({ onBack, onFinish }) {
                             : 'bg-blue-500'
                         }`}
         >
-          {/* PERBAIKAN: Teks tombol sekarang bergantung pada answerStatus, bukan isCorrect */}
           {answerStatus && currentScene.type === 'question'
-            ? answerStatus === 'correct'
+            ? isCorrect
               ? 'Benar!'
               : 'Salah!'
             : currentScene.buttonText}
