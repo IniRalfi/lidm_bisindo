@@ -84,6 +84,8 @@ function LoginPage({ onLoginSuccess }) {
         <div>
           <h1 className='text-3xl font-bold text-gray-800'>Masuk</h1>
           <p className='text-gray-500'>Hai, selamat datang kembali!</p>
+          <p className='text-gray-500'>email: 1@gmail.com</p>
+          <p className='text-gray-500'>sandi: 1</p>
         </div>
 
         {/* Form Inputs */}
