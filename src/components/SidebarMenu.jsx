@@ -156,7 +156,7 @@ function SidebarMenu({
             </div>
             <div>
               <p className='text-base font-bold text-gray-800'>{userName}</p>
-              <p className='text-sm text-gray-500'>Pengguna Isyara</p>
+              <p className='text-sm text-gray-500'>Pengguna Auri</p>
             </div>
           </div>
           <button

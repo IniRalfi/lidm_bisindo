@@ -74,6 +74,10 @@ function BerandaPage({
           <div className='flex flex-col gap-3'>
             <MateriCard title='A-Z' onClick={onNavigateToKamus} />
             <MateriCard
+              title='Angka 1-10'
+              onClick={() => alert('Fitur ini akan segera hadir!')}
+            />
+            <MateriCard
               title='Tata Bahasa Dasar'
               onClick={() => alert('Fitur ini akan segera hadir!')}
             />
