@@ -14,6 +14,8 @@ import KuisPage from './pages/KuisPage';
 import QuizCountdownPage from './pages/QuizCountdownPage';
 import QuizResultPage from './pages/QuizResultPage';
 import StoryPage from './pages/StoryPage';
+import AngkaPage from './pages/AngkaPage';
+import AngkaDetailPage from './pages/AngkaDetailPage';
 
 // Baca "saklar rahasia" untuk mode admin
 const IS_ADMIN_MODE_AVAILABLE = import.meta.env.VITE_SHOW_ADMIN_PAGE === 'true';
@@ -30,6 +32,7 @@ function App() {
   const [finalWord, setFinalWord] = useState('');
 
   const [quizResult, setQuizResult] = useState({ score: 0, total: 0 });
+  const [selectedNumber, setSelectedNumber] = useState(null);
 
   // Cek status login & mode admin saat aplikasi pertama kali dimuat
   useEffect(() => {
@@ -80,6 +83,11 @@ function App() {
     setCurrentPage('quizResult'); // Pindah ke halaman hasil
   };
 
+  const handleNumberSelect = (number) => {
+    setSelectedNumber(number);
+    setCurrentPage('angkaDetail');
+  };
+
   // Logika untuk menampilkan halaman yang benar
   const renderPage = () => {
     if (IS_ADMIN_MODE_AVAILABLE && currentPage === 'admin') {
@@ -93,6 +101,7 @@ function App() {
             <BerandaPage
               onMenuClick={() => setIsSidebarOpen(true)}
               onNavigateToKamus={() => handleNavigation('kamus')}
+              onNavigateToAngka={() => handleNavigation('angka')}
               onNavigateToNamaChallenge={() =>
                 handleNavigation('namaChallenge')
               }
@@ -106,6 +115,20 @@ function App() {
               onMenuClick={() => setIsSidebarOpen(true)}
               onNavigateToGame={() => handleNavigation('quizCountdown')} // Arahkan ke hitung mundur
               onNavigateToStory={() => handleNavigation('story')}
+            />
+          );
+        case 'angka':
+          return (
+            <AngkaPage
+              onBack={() => handleNavigation('beranda')}
+              onNumberSelect={handleNumberSelect}
+            />
+          );
+        case 'angkaDetail':
+          return (
+            <AngkaDetailPage
+              number={selectedNumber}
+              onBack={() => handleNavigation('angka')}
             />
           );
         case 'story':

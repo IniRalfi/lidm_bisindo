@@ -1,0 +1,84 @@
+{
+  "0": {
+    "title": "Angka 0",
+    "image": "/assets/angka/0.png",
+    "steps": [
+      "Bentuk tangan seperti huruf 'O'.",
+      "Semua jari melingkar dan ujung telunjuk bertemu dengan ujung jempol."
+    ]
+  },
+  "1": {
+    "title": "Angka 1",
+    "image": "/assets/angka/1.png",
+    "steps": [
+      "Angkat jari telunjuk lurus ke atas.",
+      "Jari-jari lainnya dikepal."
+    ]
+  },
+  "2": {
+    "title": "Angka 2",
+    "image": "/assets/angka/2.png",
+    "steps": [
+      "Angkat jari telunjuk dan jari tengah membentuk huruf 'V'.",
+      "Jari-jari lainnya dikepal."
+    ]
+  },
+  "3": {
+    "title": "Angka 3",
+    "image": "/assets/angka/3.png",
+    "steps": [
+      "Angkat jempol, telunjuk, dan jari tengah.",
+      "Jari manis dan kelingking ditekuk."
+    ]
+  },
+  "4": {
+    "title": "Angka 4",
+    "image": "/assets/angka/4.png",
+    "steps": [
+      "Angkat empat jari (telunjuk, tengah, manis, kelingking).",
+      "Jempol ditekuk ke dalam telapak tangan."
+    ]
+  },
+  "5": {
+    "title": "Angka 5",
+    "image": "/assets/angka/5.png",
+    "steps": ["Buka semua kelima jari tangan."]
+  },
+  "6": {
+    "title": "Angka 6",
+    "image": "/assets/angka/6.png",
+    "steps": [
+      "Tempelkan ujung jempol dengan ujung jari kelingking.",
+      "Tiga jari lainnya (telunjuk, tengah, manis) diangkat lurus ke atas."
+    ]
+  },
+  "7": {
+    "title": "Angka 7",
+    "image": "/assets/angka/7.png",
+    "steps": [
+      "Tempelkan ujung jempol dengan ujung jari manis.",
+      "Dua jari lainnya (telunjuk, tengah) diangkat lurus ke atas."
+    ]
+  },
+  "8": {
+    "title": "Angka 8",
+    "image": "/assets/angka/8.png",
+    "steps": [
+      "Tempelkan ujung jempol dengan ujung jari tengah.",
+      "Jari telunjuk diangkat lurus ke atas."
+    ]
+  },
+  "9": {
+    "title": "Angka 9",
+    "image": "/assets/angka/9.png",
+    "steps": [
+      "Tempelkan ujung jempol dengan ujung jari telunjuk.",
+      "Tiga jari lainnya diangkat lurus ke atas."
+    ]
+  },
+  "10": {
+    "title": "Angka 10",
+    "image": "/assets/angka/10.png",
+    "steps": ["Kepalkan tangan dengan jempol diangkat ke atas (gerakan 'oke')."]
+  }
+}

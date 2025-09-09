@@ -47,6 +47,7 @@ const MateriCard = ({ title, onClick }) => (
 // PERUBAHAN: Prop disederhanakan. Hanya menerima onMenuClick dan fungsi navigasi.
 function BerandaPage({
   onNavigateToKamus,
+  onNavigateToAngka,
   onNavigateToNamaChallenge,
   onMenuClick,
 }) {
@@ -74,8 +75,8 @@ function BerandaPage({
           <div className='flex flex-col gap-3'>
             <MateriCard title='A-Z' onClick={onNavigateToKamus} />
             <MateriCard
-              title='Angka 1-10'
-              onClick={() => alert('Fitur ini akan segera hadir!')}
+              title='Angka 0-10'
+              onClick={() => onNavigateToAngka()}
             />
             <MateriCard
               title='Tata Bahasa Dasar'
