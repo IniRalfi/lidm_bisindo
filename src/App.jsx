@@ -11,6 +11,7 @@ import NamaChallengePage from './pages/NamaChallengePage';
 import SuccessPage from './pages/SuccessPage';
 import AdminPage from './pages/AdminPage';
 import KuisPage from './pages/KuisPage';
+import QuizGamePage from './pages/QuizGamePage';
 import QuizCountdownPage from './pages/QuizCountdownPage';
 import QuizResultPage from './pages/QuizResultPage';
 import StoryPage from './pages/StoryPage';

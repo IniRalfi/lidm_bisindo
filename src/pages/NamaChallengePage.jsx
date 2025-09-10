@@ -109,15 +109,15 @@ function NamaChallengePage({ onBack, onFinish }) {
     }
 
     if (results.landmarks && results.landmarks.length > 0) {
-      // if (canvas) {
-      //   const drawingUtils = new DrawingUtils(canvasCtx);
-      //   drawingUtils.drawConnectors(
-      //     results.landmarks[0],
-      //     HandLandmarker.HAND_CONNECTIONS,
-      //     { color: '#22d3ee' }
-      //   );
-      //   drawingUtils.drawLandmarks(results.landmarks[0], { color: '#c026d3' });
-      // }
+      if (canvas) {
+        const drawingUtils = new DrawingUtils(canvasCtx);
+        drawingUtils.drawConnectors(
+          results.landmarks[0],
+          HandLandmarker.HAND_CONNECTIONS,
+          { color: '#22d3ee' }
+        );
+        drawingUtils.drawLandmarks(results.landmarks[0], { color: '#c026d3' });
+      }
 
       const landmarks = results.landmarks[0].flatMap((lm) => [
         lm.x,

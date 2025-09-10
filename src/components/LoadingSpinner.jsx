@@ -3,7 +3,7 @@ import React, { useState, useEffect } from 'react';
 // Sub-komponen untuk satu titik agar kode lebih bersih
 // Menerima properti warna dan status aktif (untuk ukuran)
 const Dot = ({ color, isActive }) => {
-  const sizeClass = isActive ? 'w-12 h-12' : 'w-6 h-6'; // Ukuran besar jika aktif, kecil jika tidak
+  const sizeClass = isActive ? 'w-8 h-8' : 'w-5 h-5'; // Ukuran besar jika aktif, kecil jika tidak
   return (
     <div
       className={`rounded-full ${color} ${sizeClass} transition-all duration-500 ease-in-out`}
@@ -29,23 +29,13 @@ function LoadingSpinner() {
   const colors = ['bg-[#89E219]', 'bg-[#099FE5]', 'bg-[#FF9600]'];
 
   return (
-    <div className='flex flex-col items-center justify-center gap-4'>
-      <div className='p-5 bg-black rounded-lg border border-purple-500 shadow-lg'>
+    <div className='flex flex-col items-center justify-center'>
+      <div className='p-5 rounded-lg shadow-lg'>
         <div className='grid grid-cols-3 gap-5'>
-          {/* Baris 1 */}
-          <Dot color={colors[0]} isActive={activeIndex === 0} />
-          <Dot color={colors[1]} isActive={activeIndex === 1} />
-          <Dot color={colors[2]} isActive={activeIndex === 2} />
-
           {/* Baris 2 */}
           <Dot color={colors[0]} isActive={activeIndex === 1} />
           <Dot color={colors[1]} isActive={activeIndex === 2} />
           <Dot color={colors[2]} isActive={activeIndex === 0} />
-
-          {/* Baris 3 */}
-          <Dot color={colors[0]} isActive={activeIndex === 2} />
-          <Dot color={colors[1]} isActive={activeIndex === 0} />
-          <Dot color={colors[2]} isActive={activeIndex === 1} />
         </div>
       </div>
       <p className='text-gray-500 font-semibold animate-pulse'>Memuat...</p>
