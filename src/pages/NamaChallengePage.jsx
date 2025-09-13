@@ -210,7 +210,7 @@ function NamaChallengePage({ onBack, onFinish }) {
           <button onClick={onBack} className='p-2 -ml-2'>
             <ArrowLeftIcon />
           </button>
-          <h1 className='text-2xl font-bold'>Bentuk Katamu!</h1>
+          <h1 className='text-2xl font-bold'>Bentuk Namamu!</h1>
         </header>
 
         <main className='p-4 flex flex-col gap-6'>
