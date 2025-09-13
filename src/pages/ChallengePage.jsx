@@ -5,7 +5,7 @@ import {
   FilesetResolver,
   DrawingUtils,
 } from '@mediapipe/tasks-vision';
-import kamusData from '../data/kamusData.json'; // Path sudah diperbaiki
+import kamusData from '../data/kamusData.json';
 import LoadingSpinner from '../components/LoadingSpinner';
 
 const ArrowLeftIcon = () => (
@@ -30,7 +30,7 @@ function ChallengePage({ letter, onBack }) {
 
   const videoRef = useRef(null);
   const canvasRef = useRef(null);
-  const animationFrameId = useRef(null); // Ref untuk mengontrol loop animasi
+  const animationFrameId = useRef(null);
 
   const [handLandmarker, setHandLandmarker] = useState(null);
   const [model, setModel] = useState(null);
@@ -42,7 +42,6 @@ function ChallengePage({ letter, onBack }) {
   const [challengeStatus, setChallengeStatus] = useState('idle');
   const predictionsRef = useRef([]);
 
-  // HANYA untuk setup model dan MediaPipe sekali saja
   useEffect(() => {
     const setup = async () => {
       try {
@@ -76,7 +75,6 @@ function ChallengePage({ letter, onBack }) {
     setup();
   }, []);
 
-  // useEffect terpisah HANYA untuk mengelola kamera
   useEffect(() => {
     if (handLandmarker && model) {
       navigator.mediaDevices
@@ -100,13 +98,10 @@ function ChallengePage({ letter, onBack }) {
 
     const video = videoRef.current;
 
-    // --- PERBAIKAN DI SINI ---
-    // Tambahkan pengecekan untuk memastikan video sudah siap dengan ukurannya
     if (video.videoWidth === 0 || video.videoHeight === 0) {
       animationFrameId.current = window.requestAnimationFrame(predictLoop);
-      return; // Lewati frame ini jika video belum siap
+      return;
     }
-    // -------------------------
 
     const results = handLandmarker.detectForVideo(video, Date.now());
     const canvas = canvasRef.current;
@@ -150,7 +145,6 @@ function ChallengePage({ letter, onBack }) {
     animationFrameId.current = window.requestAnimationFrame(predictLoop);
   };
 
-  // useEffect terpisah HANYA untuk MENGONTROL loop prediksi
   useEffect(() => {
     if (!isLoading) {
       animationFrameId.current = window.requestAnimationFrame(predictLoop);
@@ -160,7 +154,7 @@ function ChallengePage({ letter, onBack }) {
         window.cancelAnimationFrame(animationFrameId.current);
       }
     };
-  }, [isLoading, isRecording, model]); // Loop akan di-restart dengan state terbaru jika dependensi ini berubah
+  }, [isLoading, isRecording, model]);
 
   const handleStartChallenge = () => {
     if (isRecording) return;
@@ -192,7 +186,6 @@ function ChallengePage({ letter, onBack }) {
       console.log(`Akurasi: ${(accuracy * 100).toFixed(2)}%`);
 
       if (accuracy > 0.5) {
-        // Turunkan ambang batas sedikit
         setChallengeStatus('success');
       } else {
         setChallengeStatus('failure');
@@ -201,7 +194,6 @@ function ChallengePage({ letter, onBack }) {
     setTimeout(() => setChallengeStatus('idle'), 3000);
   };
 
-  // ... (Fungsi getButtonClass dan getButtonText tidak berubah) ...
   const getButtonClass = () => {
     switch (challengeStatus) {
       case 'recording':
@@ -224,7 +216,6 @@ function ChallengePage({ letter, onBack }) {
   return (
     <div className='min-h-screen w-full bg-white font-[var(--font-nunito)] text-gray-800'>
       <div className='w-full max-w-md mx-auto'>
-        {/* ... (seluruh JSX tidak berubah) ... */}
         <header className='sticky top-0 bg-white bg-opacity-80 backdrop-blur-sm z-20 py-4 px-4 flex items-center gap-4 border-b border-gray-200'>
           <button onClick={onBack} className='p-2 -ml-2'>
             <ArrowLeftIcon />

@@ -1,5 +1,4 @@
 import React from 'react';
-// ... (ArrowLeftIcon dan alfabet tetap sama)
 
 const ArrowLeftIcon = () => (
   <svg
@@ -47,7 +46,6 @@ const alfabet = [
   'Z',
 ];
 
-// PERUBAHAN: Kartu sekarang menjadi tombol
 const LetterCard = ({ letter, onSelect }) => {
   const imageUrl = `/assets/tangan/BISINDO_${letter}.png`;
   return (
@@ -67,7 +65,6 @@ const LetterCard = ({ letter, onSelect }) => {
   );
 };
 
-// PERUBAHAN: Menerima prop 'onLetterSelect'
 function KamusPage({ onBack, onLetterSelect }) {
   return (
     <div className='min-h-screen w-full bg-white text-gray-800'>
@@ -81,7 +78,6 @@ function KamusPage({ onBack, onLetterSelect }) {
         <main className='p-4'>
           <div className='grid grid-cols-2 gap-4'>
             {alfabet.map((huruf) => (
-              // PERUBAHAN: Memanggil onLetterSelect saat diklik
               <LetterCard
                 key={huruf}
                 letter={huruf}

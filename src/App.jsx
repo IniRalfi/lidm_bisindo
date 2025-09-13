@@ -18,16 +18,15 @@ import StoryPage from './pages/StoryPage';
 import AngkaPage from './pages/AngkaPage';
 import AngkaDetailPage from './pages/AngkaDetailPage';
 
-// Baca "saklar rahasia" untuk mode admin
+// untuk mode admin
 const IS_ADMIN_MODE_AVAILABLE = import.meta.env.VITE_SHOW_ADMIN_PAGE === 'true';
 
 function App() {
   // State untuk mengontrol sidebar
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
-  // State lain untuk alur aplikasi
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  // Halaman aktif: ..., 'kuis', 'quizCountdown', 'quizGame'
+
   const [currentPage, setCurrentPage] = useState('landing');
   const [selectedLetter, setSelectedLetter] = useState(null);
   const [finalWord, setFinalWord] = useState('');
@@ -80,8 +79,8 @@ function App() {
   };
 
   const handleQuizFinish = (result) => {
-    setQuizResult(result); // Simpan skor
-    setCurrentPage('quizResult'); // Pindah ke halaman hasil
+    setQuizResult(result);
+    setCurrentPage('quizResult');
   };
 
   const handleNumberSelect = (number) => {
@@ -89,7 +88,7 @@ function App() {
     setCurrentPage('angkaDetail');
   };
 
-  // Logika untuk menampilkan halaman yang benar
+  // Logika untuk menampilkan halaman yang benar berdasarkan state
   const renderPage = () => {
     if (IS_ADMIN_MODE_AVAILABLE && currentPage === 'admin') {
       return <AdminPage />;
@@ -108,13 +107,11 @@ function App() {
               }
             />
           );
-
-        // --- ALUR KUIS BARU ---
         case 'kuis':
           return (
             <KuisPage
               onMenuClick={() => setIsSidebarOpen(true)}
-              onNavigateToGame={() => handleNavigation('quizCountdown')} // Arahkan ke hitung mundur
+              onNavigateToGame={() => handleNavigation('quizCountdown')}
               onNavigateToStory={() => handleNavigation('story')}
             />
           );
@@ -133,7 +130,6 @@ function App() {
             />
           );
         case 'story':
-          // Setelah cerita selesai, panggil handleQuizFinish
           return (
             <StoryPage
               onBack={() => handleNavigation('kuis')}
@@ -145,10 +141,8 @@ function App() {
             <QuizCountdownPage
               onCountdownFinish={() => handleNavigation('quizGame')}
             />
-          ); // Setelah selesai, arahkan ke game
-
+          );
         case 'quizGame':
-          // Jahit fungsi handleQuizFinish ke QuizGamePage
           return (
             <QuizGamePage
               onBackToMenu={() => handleNavigation('kuis')}

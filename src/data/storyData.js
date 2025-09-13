@@ -1,4 +1,3 @@
-// Daftar semua huruf yang kita punya gambarnya sebagai "dataset"
 const ALPHABET = [
   'A',
   'B',
@@ -48,7 +47,6 @@ export const generateStoryQuiz = () => {
 
   // 4. Bangun "naskah" cerita secara dinamis dengan data acak yang sudah kita buat
   const storyScript = [
-    // Adegan 0: Intro (tetap sama)
     {
       scene: 1,
       type: 'dialogue',
@@ -62,7 +60,7 @@ export const generateStoryQuiz = () => {
       ],
       buttonText: 'Lanjut',
     },
-    // Adegan 1: Pertanyaan (sekarang dinamis)
+
     {
       scene: 2,
       type: 'question',
@@ -75,15 +73,16 @@ export const generateStoryQuiz = () => {
           speaker: 'Dori',
           text: 'Kemarin kan bu Tuti ngasih gambar ini di kelas, apa ya hurufnya?',
           image: `/assets/tangan/BISINDO_${correctLetter}.png`,
-        }, // <-- Gambar dinamis
+        },
       ],
       question: {
-        options: options, // <-- Pilihan dinamis
-        correctAnswer: correctLetter, // <-- Jawaban benar dinamis
+        options: options,
+        correctAnswer: correctLetter,
       },
       buttonText: 'Periksa',
     },
-    // Adegan 2: JIKA JAWABAN BENAR (sekarang dinamis)
+
+    // Adegan 2: JIKA JAWABAN BENAR
     {
       scene: 3,
       type: 'dialogue',
@@ -101,7 +100,7 @@ export const generateStoryQuiz = () => {
       ],
       buttonText: 'Selesai',
     },
-    // Adegan 3: JIKA JAWABAN SALAH (tetap sama)
+    // Adegan 3: JIKA JAWABAN SALAH
     {
       scene: 4,
       type: 'dialogue',

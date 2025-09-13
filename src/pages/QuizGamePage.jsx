@@ -27,12 +27,10 @@ function QuizGamePage({ onBackToMenu, onQuizComplete }) {
   const [score, setScore] = useState(0);
   const [questionResults, setQuestionResults] = useState([]);
 
-  // Buat kuis baru saat halaman pertama kali dimuat
   useEffect(() => {
     setQuestions(generateQuiz());
   }, []);
 
-  // --- PERUBAHAN UTAMA DI SINI ---
   // Pindahkan pengecekan loading ke paling atas.
   // Jika data soal belum siap, jangan lanjutkan eksekusi kode di bawahnya.
   if (questions.length === 0) {

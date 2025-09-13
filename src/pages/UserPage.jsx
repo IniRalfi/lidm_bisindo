@@ -77,7 +77,6 @@ function UserPage() {
 
   const predictWebcam = () => {
     if (!isDetecting || !videoRef.current) return;
-    // ... (sisa fungsi predictWebcam sama persis dengan yang sudah Anda buat)
     const video = videoRef.current;
     if (video.videoWidth === 0) {
       window.requestAnimationFrame(predictWebcam);

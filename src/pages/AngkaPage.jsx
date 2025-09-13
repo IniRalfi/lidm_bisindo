@@ -19,7 +19,6 @@ const ArrowLeftIcon = () => (
 
 const numbers = [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 
-// PERUBAHAN: Kartu sekarang menjadi tombol yang bisa diklik
 const NumberCard = ({ number, onSelect }) => {
   const imageUrl = `/assets/angka/${number}.png`;
   return (
@@ -39,7 +38,6 @@ const NumberCard = ({ number, onSelect }) => {
   );
 };
 
-// PERUBAHAN: Menerima prop 'onNumberSelect' dari App.jsx
 function AngkaPage({ onBack, onNumberSelect }) {
   return (
     <div className='min-h-screen w-full bg-white  text-gray-800'>
@@ -53,7 +51,6 @@ function AngkaPage({ onBack, onNumberSelect }) {
         <main className='p-4'>
           <div className='grid grid-cols-2 gap-4'>
             {numbers.map((num) => (
-              // PERUBAHAN: Memanggil onNumberSelect saat kartu diklik, mengirimkan angka yang dipilih
               <NumberCard
                 key={num}
                 number={num}

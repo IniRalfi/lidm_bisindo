@@ -1,8 +1,7 @@
 import React, { useState, useEffect } from 'react';
-// PERUBAHAN: Impor fungsi generator, bukan data statis
 import { generateStoryQuiz } from '../data/storyData';
 
-// Komponen Ikon & Dialog (tidak ada perubahan di sini)
+// Komponen Ikon & Dialog
 const ArrowLeftIcon = () => (
   <svg
     className='w-8 h-8 text-gray-800'
@@ -45,7 +44,6 @@ const DialogueBubble = ({ speaker, text, image, speakerPosition }) => {
 };
 
 function StoryPage({ onBack, onFinish }) {
-  // State BARU untuk menyimpan naskah cerita yang dibuat secara acak
   const [story, setStory] = useState(null);
 
   const [sceneIndex, setSceneIndex] = useState(0);

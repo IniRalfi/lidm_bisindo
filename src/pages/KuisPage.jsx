@@ -34,8 +34,6 @@ const ChevronRightIcon = () => (
   </svg>
 );
 
-// IDE EKSEKUSI: Komponen Kartu Kuis yang bisa digunakan ulang
-// Ini membuat kode utama lebih bersih dan mudah dikelola.
 const QuizCard = ({ title, onClick, disabled = false }) => (
   <button
     onClick={onClick}
@@ -65,7 +63,6 @@ function KuisPage({ onMenuClick, onNavigateToGame, onNavigateToStory }) {
         </div>
       </header>
 
-      {/* Konten Utama dengan efek "menjorok ke atas" */}
       <main className='w-full max-w-md mx-auto bg-white rounded-t-2xl -mt-6 p-6 flex flex-col gap-8'>
         {/* Bagian Kuis Dasar */}
         <section>

@@ -1,7 +1,6 @@
 import React from 'react';
 import ChallengeBanner from '../components/ChallengeBanner';
 
-// Ikon-ikon ini masih diperlukan oleh komponen ini
 const HamburgerIcon = () => (
   <svg
     className='w-8 h-8 text-gray-800'
@@ -44,7 +43,6 @@ const MateriCard = ({ title, onClick }) => (
   </button>
 );
 
-// PERUBAHAN: Prop disederhanakan. Hanya menerima onMenuClick dan fungsi navigasi.
 function BerandaPage({
   onNavigateToKamus,
   onNavigateToAngka,
@@ -55,21 +53,18 @@ function BerandaPage({
 
   return (
     <div className='min-h-screen w-full bg-white p-6 font-[var(--font-nunito)] text-gray-800'>
-      {/* SidebarMenu sudah tidak ada lagi di sini */}
-
       <div className='w-full max-w-md mx-auto flex flex-col gap-8'>
         <header className='flex justify-between items-center'>
           <div>
             <h1 className='text-2xl font-bold'>Hai, {userName}!</h1>
             <p className='text-gray-500'>Selamat datang!</p>
           </div>
-          {/* PERUBAHAN: Tombol ini sekarang memanggil onMenuClick yang dikirim dari App.jsx */}
+
           <button onClick={onMenuClick} className='p-2'>
             <HamburgerIcon />
           </button>
         </header>
 
-        {/* Bagian Materi (tidak berubah) */}
         <section>
           <h2 className='text-2xl font-bold mb-3'>Materi</h2>
           <div className='flex flex-col gap-3'>
@@ -85,7 +80,6 @@ function BerandaPage({
           </div>
         </section>
 
-        {/* Bagian Tantangan (tidak berubah) */}
         <section>
           <h2 className='text-2xl font-bold mb-3'>Tantangan Sederhana!</h2>
           <ChallengeBanner onClick={onNavigateToNamaChallenge} />

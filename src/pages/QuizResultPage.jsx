@@ -4,10 +4,7 @@ function QuizResultPage({ score, totalQuestions, onFinish }) {
   const wrongAnswers = totalQuestions - score;
 
   return (
-    // PERUBAHAN UTAMA DI SINI:
-    // Ganti latar belakang hitam menjadi efek kaca buram (backdrop-blur)
     <div className='fixed inset-0 bg-white bg-opacity-50 backdrop-blur-sm z-50 flex items-center justify-center p-4 font-[var(--font-nunito)] animate-fade-in'>
-      {/* Kartu Hasil Kuis (tidak berubah) */}
       <div className='bg-white rounded-3xl border-4 border-gray-200 p-8 w-full max-w-md flex flex-col items-center gap-6 text-center'>
         <h1 className='text-4xl font-bold text-blue-500'>Kuis Selesai!</h1>
 

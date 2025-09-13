@@ -36,7 +36,6 @@ const ChevronRightIcon = () => (
 );
 
 function DetailPage({ letter, onBack, onStartChallenge }) {
-  // Ambil data spesifik untuk huruf yang dipilih dari file JSON
   const detail = kamusData[letter];
 
   // Pengaman jika data tidak ditemukan
@@ -52,7 +51,6 @@ function DetailPage({ letter, onBack, onStartChallenge }) {
   return (
     <div className='min-h-screen w-full bg-white font-[var(--font-nunito)] text-gray-800'>
       <div className='w-full max-w-md mx-auto'>
-        {/* Header Tetap (Sticky) */}
         <header className='sticky top-0 bg-white bg-opacity-80 backdrop-blur-sm z-20 py-4 px-4 flex items-center gap-4 border-b border-gray-200'>
           <button onClick={onBack} className='p-2 -ml-2'>
             <ArrowLeftIcon />

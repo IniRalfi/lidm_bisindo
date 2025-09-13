@@ -62,6 +62,7 @@ function LoginPage({ onLoginSuccess }) {
 
   const handleLogin = (e) => {
     e.preventDefault();
+
     // Kredensial rahasia untuk satu akun
     const correctEmail = 'user@auri.com';
     const correctPassword = '12345';

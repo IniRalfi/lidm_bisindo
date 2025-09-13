@@ -1,5 +1,5 @@
 import React from 'react';
-import angkaData from '../data/angkaData.json'; // Impor database angka
+import angkaData from '../data/angkaData.json'; // Impor data dari file JSON
 
 // Komponen Ikon
 const ArrowLeftIcon = () => (

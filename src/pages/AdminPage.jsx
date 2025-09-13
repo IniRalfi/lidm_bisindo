@@ -6,7 +6,7 @@ import {
   FilesetResolver,
   DrawingUtils,
 } from '@mediapipe/tasks-vision';
-import TrainingModule from '../TrainingModule'; // Kita akan buat file ini selanjutnya
+import TrainingModule from '../TrainingModule';
 
 const LETTERS = [
   'A',
@@ -41,10 +41,6 @@ function AdminPage() {
   const videoRef = useRef(null);
   const canvasRef = useRef(null);
 
-  // const modelJsonRef = useRef(null);
-  // const modelWeightsRef = useRef(null);
-  // const labelsRef = useRef(null);
-
   const [handLandmarker, setHandLandmarker] = useState(null);
   const [model, setModel] = useState(null);
   const [labels, setLabels] = useState([]);
@@ -54,7 +50,7 @@ function AdminPage() {
   const [webcamRunning, setWebcamRunning] = useState(false);
   const [isDetecting, setIsDetecting] = useState(false);
 
-  const [recordedData, setRecordedData] = useState({}); // Menyimpan data per huruf
+  const [recordedData, setRecordedData] = useState({});
   const [isRecording, setIsRecording] = useState(false);
   const [currentLetter, setCurrentLetter] = useState(null);
 
@@ -84,9 +80,6 @@ function AdminPage() {
     createHandLandmarker();
   }, []);
 
-  // ... (setelah useEffect createHandLandmarker)
-
-  // --- TAMBAHKAN BLOK useEffect BARU INI ---
   useEffect(() => {
     const loadModelAndLabels = async () => {
       try {
@@ -105,12 +98,11 @@ function AdminPage() {
       } catch (error) {
         console.error('Gagal memuat model secara otomatis:', error);
       } finally {
-        // Selesai loading (baik berhasil maupun gagal)
         setIsLoadingModel(false);
       }
     };
     loadModelAndLabels();
-  }, []); // Array dependensi kosong agar hanya berjalan sekali
+  }, []);
 
   const enableCam = () => {
     if (!handLandmarker || webcamRunning) return;
@@ -133,14 +125,12 @@ function AdminPage() {
     }
   }, [isDetecting]);
 
-  // --- PERUBAHAN UTAMA DI SINI ---
   const startRecording = (letter) => {
     setCurrentLetter(letter);
     setIsRecording(true);
-    const letterFrames = []; // Penampung sementara hanya untuk sesi ini
+    const letterFrames = [];
 
     const recordInterval = setInterval(() => {
-      // Setiap frame, kita rekam jika ada landmarks
       const video = videoRef.current;
       if (video && handLandmarker) {
         const results = handLandmarker.detectForVideo(video, Date.now());
@@ -161,17 +151,16 @@ function AdminPage() {
       setCurrentLetter(null);
 
       if (letterFrames.length > 0) {
-        // Simpan data baru ke state utama
         setRecordedData((prevData) => ({
           ...prevData,
           [letter]: letterFrames,
         }));
-        // Langsung unduh file JSON untuk huruf ini
         saveLetterData(letter, letterFrames);
       }
     }, 3000); // Durasi perekaman 3 detik
   };
 
+  // TIDAK DI PAKE NAMUN PENTING UNTUK DEBUGGING dan PENGEMBANGAN
   // const loadModel = async () => {
   //   const jsonFile = modelJsonRef.current.files[0];
   //   const weightsFile = modelWeightsRef.current.files[0];
@@ -236,7 +225,11 @@ function AdminPage() {
     canvasCtx.clearRect(0, 0, canvas.width, canvas.height);
 
     if (results.landmarks && results.landmarks.length > 0) {
-      const drawingUtils = new DrawingUtils(canvasCtx);
+      // Gambar hasil deteksi tangan di kanvas
+      // (Komentar ini untuk mengingatkan bahwa bagian ini bisa diaktifkan kembali jika diperlukan)
+      // --- BAGIAN GAMBARAN TANGAN DINONAKTIFKAN SEMENTARA ---
+
+      // const drawingUtils = new DrawingUtils(canvasCtx);
       // for (const landmark of results.landmarks) {
       //   drawingUtils.drawConnectors(landmark, HandLandmarker.HAND_CONNECTIONS, {
       //     color: "#22d3ee",
@@ -249,9 +242,8 @@ function AdminPage() {
       //   });
       // }
 
-      // --- LOG DIAGNOSTIK DIMULAI DI SINI ---
+      // --- LOG DIAGNOSTIK ---
 
-      // Log 1: "Penjaga Gerbang". Kita cek apa isi state model dan labels.
       console.log(
         'Mencoba prediksi. Status Model:',
         model,
@@ -260,7 +252,6 @@ function AdminPage() {
       );
 
       if (model && labels.length > 0) {
-        // Log 2: Jika ini muncul, berarti kita berhasil masuk ke logika prediksi.
         console.log('%cBerhasil masuk ke blok prediksi!', 'color: lightgreen;');
 
         const landmarks = results.landmarks[0].flatMap((lm) => [
@@ -275,7 +266,6 @@ function AdminPage() {
           Math.max(...predictionData)
         );
 
-        // Log 3: Kita lihat apa hasil tebakannya sebelum ditampilkan.
         console.log(
           `Indeks Prediksi: ${predictedIndex}, Huruf: ${labels[predictedIndex]}`
         );
@@ -289,12 +279,10 @@ function AdminPage() {
   };
   return (
     <div className='bg-gray-800 min-h-screen text-white p-4 flex flex-col items-center space-y-6'>
-      {/* --- PERUBAHAN UTAMA: STRUKTUR LAYOUT --- */}
-
       {/* BAGIAN 1: JUDUL DAN PREDIKSI */}
       <div className='w-full max-w-2xl flex flex-col items-center'>
         <h1 className='text-3xl font-bold mb-4 text-center'>
-          Isyara: Pengenalan BISINDO Real-time
+          Auri: Pengenalan BISINDO Real-time
         </h1>
         <div className='w-full border-4 border-cyan-500 rounded-lg shadow-lg relative'>
           <video
@@ -318,7 +306,6 @@ function AdminPage() {
           )}
         </div>
 
-        {/* --- GANTI SELURUH DIV TOMBOL KONTROL DENGAN YANG INI --- */}
         <div className='flex flex-wrap justify-center items-center gap-4 my-4'>
           <button
             onClick={enableCam}

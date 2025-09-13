@@ -37,10 +37,9 @@ function NamaChallengePage({ onBack, onFinish }) {
   const [isRecording, setIsRecording] = useState(false);
   const [countdown, setCountdown] = useState(3);
   const [predictedLetter, setPredictedLetter] = useState('...');
-  const [spelledWord, setSpelledWord] = useState([]); // Menyimpan kata yang dieja
+  const [spelledWord, setSpelledWord] = useState([]);
   const sessionPredictionsRef = useRef([]);
 
-  // Setup & muat model (sama seperti sebelumnya)
   useEffect(() => {
     const setup = async () => {
       try {
@@ -74,7 +73,7 @@ function NamaChallengePage({ onBack, onFinish }) {
     setup();
   }, []);
 
-  // Mengelola kamera (sama seperti sebelumnya)
+  // Mengelola kamera
   useEffect(() => {
     if (handLandmarker && model) {
       navigator.mediaDevices
@@ -90,7 +89,7 @@ function NamaChallengePage({ onBack, onFinish }) {
     };
   }, [handLandmarker, model]);
 
-  // Loop prediksi (mirip, tapi hanya update state `predictedLetter`)
+  // Loop prediksi
   const predictLoop = () => {
     if (!videoRef.current || !handLandmarker) return;
     const video = videoRef.current;
@@ -193,7 +192,7 @@ function NamaChallengePage({ onBack, onFinish }) {
 
   // Fungsi BARU untuk mengulangi huruf terakhir
   const handleRepeat = () => {
-    setSpelledWord((prev) => prev.slice(0, -1)); // Hapus huruf terakhir
+    setSpelledWord((prev) => prev.slice(0, -1));
   };
 
   const handleFinish = () => {
@@ -277,7 +276,6 @@ function NamaChallengePage({ onBack, onFinish }) {
                 {isRecording ? `Merekam... ${countdown}` : 'Mulai Rekam!'}
               </button>
             ) : (
-              // PERUBAHAN DI SINI: Tombol disusun ke bawah
               <div className='flex flex-col gap-3'>
                 <button
                   onClick={handleStartRecording}
